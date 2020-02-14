@@ -1,0 +1,36 @@
+<div id="card" class="card d-flex flex-column">
+
+  {% if post.body %}
+    <div class="title">
+      <a href="/post/{{ post.id }}">
+        <h6 class="title-text"><b>{{ post.body }}</b></h6>
+      </a>
+    </div>
+  {% endif %}
+
+  <div class="video" id="{{ post.url }}"></div>
+
+  <div class="card-bottom">
+      posted by:
+      <a href="{{ url_for('user_profile', username=post.author.username) }}">
+        __{{ post.author.username }}__
+      </a>
+
+      <br>
+
+      {% if post.author.id == current_user.id or current_user.admin %}
+        <button class="btn">
+          <a href="{{ url_for('update_post', id=post.id) }}">update</a>
+        </button>
+
+        <button class="btn">
+          <a href="{{ url_for('delete_post', id=post.id) }}">delete</a>
+        </button>
+      {% endif %}
+      
+      <button class="btn hide">
+        <a href="#">hide</a>
+      </button>
+  </div>
+
+</div>

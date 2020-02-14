@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <div class="row">
+        <h3>Admin Page</h3>
+    </div>
+
+    <div class="row">
+        <a href="{{ url_for('delete_posts') }}">Delete all posts</a>
+    </div>
+
+    <div class="row">
+        {% for post in posts %}
+            {% include '_post.html' %}
+        {% endfor %}
+    </div>
+    
+    <div class="row">
+        {% for user in users %}
+            {% include '_user.html' %}
+        {% endfor %}
+    </div>
+{% endblock %}

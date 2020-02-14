@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="row">
+
+        <div class="col d-flex">
+            <img class="rounded-circle" style="width:250px; margin:auto;" src="{{ user.profile_picture_url }}">
+        </div>
+
+        <div style="text-align:center" class="col">
+            <h1>
+                <a href="{{ url_for('user_profile', username=current_user.username) }}">__{{ user.username }}__</a>
+            </h1>
+            
+
+            {% if user.about_me %}
+                <p>{{ user.about_me }}</p>
+            {% endif %}
+
+            <div class="row d-flex justify-content-around">
+                {% if user.twitter %}
+                <a href="{{user.twitter}}">
+                    <p>twitter</p>
+                </a>
+                {% endif %}
+
+                {% if user.instagram %}
+                    <a href="{{user.instagram}}">
+                        <p>instagram</p>
+                    </a>
+                {% endif %}
+
+                {% if user.github %}
+                    <a href="{{user.github}}">
+                        <p>github</p>
+                    </a>
+                {% endif %}
+
+                <button
+                style="background-color:#6772E5;color:#FFF;padding:8px 12px;border:0;border-radius:4px;font-size:1em"
+                id="checkout-button-sku_GjNmfTwM80vRpw"
+                role="link"
+                >
+                Get Posting Privileges
+                </button>
+
+                <div id="error-message"></div>
+            </div>
+
+            
+
+            {% if user.last_seen %}
+                <p>Last seen on: {{ user.last_seen }}</p>
+            {% endif %}
+
+            <p>
+                <a href="/user/{{ user.username }}/following">{{ user.followed.count() }} following</a>
+            </p>
+
+            {% if user == current_user %}
+
+                <p>
+                    <a style="margin: 10px;" href="{{ url_for('reset_pw') }}">Reset Password</a>
+                </p>
+
+
+                {% if user.receives_mail == False %}
+                    <p>
+                        <a href="{{ url_for('email_subscribe', username=user.username) }}">Sign Up For Weekly Newsletter</a>
+                    </p>
+                {% endif %}
+
+                {% if user.receives_mail == True %}
+                    <p>
+                        <a href="{{ url_for('email_unsubscribe', username=user.username) }}">Unsubscribe From Weekly Newsletter</a>
+                    </p>
+                {% endif %}
+
+                <p>
+                    <a style="margin: 10px;" href="{{ url_for('edit_profile') }}">Edit your profile</a>
+                </p>
+
+            {% elif not current_user.is_following(user) %}
+                <p>
+                    <a href="{{ url_for('follow', username=user.username) }}">Follow</a>
+                </p>
+            {% else %}
+                <p>
+                    <a href="{{ url_for('unfollow', username=user.username) }}">Unfollow</a>
+                </p>
+            {% endif %}
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="row d-flex">
+        {% if next_url %}
+            <a style="margin-right: auto;" href="{{ next_url }}">&lt;&lt;Older Posts</a>
+        {% endif %}
+
+        {% if prev_url %}
+            <a href="{{ prev_url }}">Newer Posts&gt;&gt;</a>
+        {% endif %}
+    <div>
+
+    <div class="row d-flex justify-content-center">
+        {% for post in posts %}
+            {% include '_post.html' %}
+        {% endfor %}
+    </div>
+{% endblock %}

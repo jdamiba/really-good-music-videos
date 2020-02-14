@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+    {% block content %}
+        <h3 class="feed-title">
+            <a href="{{ url_for('user_profile', username=current_user.username) }}">__{{ current_user.username }}__</a>'s Feed
+        </h3>
+
+        <hr>
+
+        <div class="row d-flex">
+            {% if next_url %}
+            <a style="margin-right: auto;" href="{{ next_url }}">&lt;&lt;Older Posts</a>
+            {% endif %}
+
+            {% if prev_url %}
+            <a href="{{ prev_url }}">Newer Posts&gt;&gt;</a>
+            {% endif %}
+        <div>
+
+        <div style="max-width: 100%;" class="row d-flex justify-content-around">
+            {% for post in posts %}
+                {% include '_post.html' %}
+            {% endfor %}
+        </div>
+
+{% endblock %}

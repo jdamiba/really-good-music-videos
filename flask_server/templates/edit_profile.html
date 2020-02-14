@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>Edit Profile</h1>
+
+    {% if current_user.is_poster() %}
+        <a class="m-1 pa-1" href="{{ url_for('create_post') }}">Create New Post</a>
+    {% endif %}
+
+    <br>
+    <br>
+
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+
+        <p>
+            {{ form.username.label }}<br>
+            {{ form.username(size=32) }}<br>
+            {% for error in form.username.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+
+        <p>
+            {{ form.profile_picture_url.label }}<br>
+            {{ form.profile_picture_url(size=32) }}<br>
+            {% for error in form.profile_picture_url.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+
+        <p>
+            {{ form.twitter.label }}<br>
+            {{ form.twitter(size=32) }}<br>
+            {% for error in form.twitter.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+
+        <p>
+            {{ form.instagram.label }}<br>
+            {{ form.instagram(size=32) }}<br>
+            {% for error in form.instagram.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+
+        <p>
+            {{ form.github.label }}<br>
+            {{ form.github(size=32) }}<br>
+            {% for error in form.github.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+
+        <p>
+            {{ form.about_me.label }}<br>
+            {{ form.about_me(cols=50, rows=4) }}<br>
+            {% for error in form.about_me.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        
+        <p>{{ form.submit() }}</p>
+    </form>
+{% endblock %}
