@@ -2,11 +2,11 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_login import LoginManager, login_required
-from config import Config
+from configuration import Configuration
 from flask_mail import Mail
 
 flask_server = Flask(__name__, static_folder="static")
-flask_server.config.from_object(Config)
+flask_server.config.from_object(Configuration)
 
 db = SQLAlchemy(flask_server)
 

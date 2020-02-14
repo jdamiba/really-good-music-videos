@@ -3,8 +3,6 @@
 # C extensions
 *.so
 
-config.py
-
 # Packages
 *.egg
 *.egg-info
@@ -40,4 +38,4 @@ nosetests.xml
 venv
 app.db
 microblog.log*
-config.py
+configuration.py
